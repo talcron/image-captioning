@@ -8,6 +8,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import torch
 from datetime import datetime
+import os
 
 from caption_utils import *
 from constants import ROOT_STATS_DIR
@@ -120,7 +121,7 @@ class Experiment(object):
             for iter, (images, captions, img_ids) in enumerate(self.__test_loader):
                 raise NotImplementedError()
 
-        result_str = "Test Performance: Loss: {}, Perplexity: {}, Bleu1: {}, Bleu4: {}".format(test_loss,
+        result_str = "Test Performance: Loss: {}, Bleu1: {}, Bleu4: {}".format(test_loss,
                                                                                                bleu1,
                                                                                                bleu4)
         self.__log(result_str)
