@@ -1,5 +1,6 @@
 {
   "experiment_name": "default_experiment",
+  "num_gpu": 2,
   "dataset": {
     "training_ids_file_path": "./train_ids.csv",
     "validation_ids_file_path": "./val_ids.csv",
@@ -13,13 +14,13 @@
     "num_workers": 8
   },
   "experiment": {
-    "num_epochs": 10,
+    "num_epochs": 20,
     "learning_rate": 5e-4
   },
   "model": {
     "hidden_size": 512,
     "embedding_size": 300,
-    "model_type": "RNN"
+    "model_type": "LSTM"
   },
   "generation": {
     "max_length": 20,
