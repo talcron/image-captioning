@@ -17,7 +17,7 @@ from pycocotools.coco import COCO
 class CocoDataset(data.Dataset):
     """COCO Custom Dataset compatible with torch.utils.data.DataLoader."""
 
-    def __init__(self, root, json, ids, vocab, img_size, transform=None):
+    def __init__(self, root, json, ids, vocab, img_size, transform, is_train=True):
         """Set the path for images, captions and vocabulary wrapper.
 
         Args:
@@ -34,9 +34,41 @@ class CocoDataset(data.Dataset):
             transforms.ToTensor(),
             transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
         ])
+        self.transform = transform
 
-        self.resize = transforms.Compose(
-            [transforms.Resize(img_size, interpolation=2), transforms.CenterCrop(img_size)])
+        if is_train:
+            if self.transform == 'random_crop':
+                self.resize = transforms.Compose(
+                    [transforms.Resize(img_size, interpolation=2), transforms.RandomCrop(img_size)])
+            elif self.transform == 'h_flip':
+                self.resize = transforms.Compose(
+                    [transforms.Resize(img_size, interpolation=2), transforms.CenterCrop(img_size),
+                     transforms.RandomHorizontalFlip(p=0.5)])
+            elif self.transform == 'h_flip_random_crop':
+                self.resize = transforms.Compose(
+                    [transforms.Resize(img_size, interpolation=2), transforms.RandomCrop(img_size),
+                     transforms.RandomHorizontalFlip(p=0.5)])
+            elif self.transform == 'random_resize':
+                self.resize = transforms.Compose(
+                    [transforms.RandomResizedCrop(img_size, scale=(0.7, 1.0), interpolation=2)])
+            elif self.transform == 'random_resize5':
+                self.resize = transforms.Compose(
+                    [transforms.RandomResizedCrop(img_size, scale=(0.5, 1.0), interpolation=2)])
+            elif self.transform == 'random_resize8':
+                self.resize = transforms.Compose(
+                    [transforms.RandomResizedCrop(img_size, scale=(0.8, 1.0), interpolation=2)])
+            elif self.transform == 'random_resize9':
+                self.resize = transforms.Compose(
+                    [transforms.RandomResizedCrop(img_size, scale=(0.9, 1.0), interpolation=2)])
+            elif self.transform == 'total_resize':
+                self.resize = transforms.Compose(
+                    [transforms.RandomResizedCrop(img_size, scale=(0.0001, 0.001))])
+            else:
+                self.resize = transforms.Compose(
+                    [transforms.Resize(img_size, interpolation=2), transforms.CenterCrop(img_size)])
+        else:
+            self.resize = transforms.Compose(
+                [transforms.Resize(img_size, interpolation=2), transforms.CenterCrop(img_size)])
 
     def __getitem__(self, index):
         """Returns one data pair (image and caption)."""

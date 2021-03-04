@@ -1,30 +1,31 @@
 {
-  "experiment_name": "default_experiment",
-  "num_gpu": 2,
+  "experiment_name": "default",
+  "num_gpu": 0,
   "dataset": {
     "training_ids_file_path": "./train_ids.csv",
     "validation_ids_file_path": "./val_ids.csv",
     "test_ids_file_path": "./test_ids.csv",
-    "training_annotation_file_path": "./data/annotations/captions_train2014.json",
-    "test_annotation_file_path": "./data/annotations/captions_val2014.json",
-    "images_root_dir": "./data/images/",
+    "training_annotation_file_path": "./vocab_data/annotations/captions_train2014.json",
+    "test_annotation_file_path": "./vocab_data/annotations/captions_val2014.json",
+    "images_root_dir": "./img_data/images/",
     "vocabulary_threshold": 2,
     "img_size": 256,
-    "batch_size": 64,
-    "num_workers": 8
+    "batch_size": 256,
+    "num_workers": 8,
+    "transform": "random_crop"
   },
   "experiment": {
-    "num_epochs": 20,
+    "num_epochs": -1,
     "learning_rate": 5e-4
   },
   "model": {
-    "hidden_size": 512,
+    "hidden_size": 1024,
     "embedding_size": 300,
     "model_type": "LSTM"
   },
   "generation": {
     "max_length": 20,
     "deterministic": false,
-    "temperature": 0.1
+    "temperature": 0.0
   }
 }

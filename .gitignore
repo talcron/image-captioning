@@ -1,1 +1,10 @@
 data/
+experiment_configs
+models/best_model.pt
+get_datasets.ipynb
+get_datasets.py
+plots_PA4.py
+runs1.sh
+runs2.sh
+results
+.ipynb_checkpoints
