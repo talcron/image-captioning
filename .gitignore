@@ -8,3 +8,5 @@ runs1.sh
 runs2.sh
 results
 .ipynb_checkpoints
+generated_output
+img_data
